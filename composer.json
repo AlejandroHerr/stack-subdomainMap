@@ -1,0 +1,23 @@
+{
+    "name": "alejandroherr/subdomainmap",
+    "description": "Middleware to map the kernels depending on the subdomain",
+    "authors": [
+        {
+            "name": "AlejandroHerr",
+            "email": "alejandrohnc88@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/http-kernel": "2.6.*@dev",
+        "symfony/http-foundation": "2.4.*@dev"
+    },
+    "suggest": {
+        "stack/lazy-http-kernel": "HttpKernelInterface lazy proxy"
+    },
+    "autoload": {
+        "psr-0": {
+            "AlejandroHerr\\Stack": "src/"
+        }
+    }
+}
