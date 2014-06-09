@@ -9,8 +9,11 @@
     ],
     "require": {
         "php": ">=5.3.3",
-        "symfony/http-kernel": "2.6.*@dev",
+        "symfony/http-kernel": "2.5.*@dev",
         "symfony/http-foundation": "2.4.*@dev"
+    },
+    "require-dev":{
+        "silex/silex": "1.2.*@dev"
     },
     "suggest": {
         "stack/lazy-http-kernel": "HttpKernelInterface lazy proxy"
