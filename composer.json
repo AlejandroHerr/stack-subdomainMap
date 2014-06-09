@@ -2,6 +2,7 @@
     "name": "alejandroherr/subdomainmap",
     "description": "Middleware to map the kernels depending on the subdomain",
     "keywords": ["stack","subdomain"],
+    "license": "MIT",
     "authors": [
         {
             "name": "AlejandroHerr",
