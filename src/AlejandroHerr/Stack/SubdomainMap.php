@@ -34,7 +34,13 @@ class SubdomainMap implements HttpKernelInterface
     public function handle(Request $request, $type = HttpKernelInterface::MASTER_REQUEST, $catch = true)
     {
         $uri = rawurldecode($request->getUri());
-        $subDomain = explode('.',explode('/', $uri)[2])[0];
+        
+        #Broken into lines to be compatible with php5.3
+        $subDomain = explode('/', $uri);
+        $subDomain = $subDomain[2];
+        $subDomain = explode('.',$subDomain);
+        $subDomain = $subDomain[0];
+
         foreach ($this->map as $pattern => $app) {
             if (preg_match($pattern, $subDomain)) {
                 $newRequest = $request->duplicate();
