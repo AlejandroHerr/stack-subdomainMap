@@ -34,7 +34,7 @@ class SubdomainMap implements HttpKernelInterface
     public function handle(Request $request, $type = HttpKernelInterface::MASTER_REQUEST, $catch = true)
     {
         $uri = rawurldecode($request->getUri());
-        
+
         #Broken into lines to be compatible with php5.3
         $subDomain = explode('/', $uri);
         $subDomain = $subDomain[2];
