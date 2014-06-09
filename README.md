@@ -7,7 +7,15 @@ Middleware to map the kernels depending on the subdomain.
 **Heavily** inspired in [URL Map Stack Middleware](https://github.com/stackphp/url-map).
 
 ##HOW TO
-
+###Installation
+Via composer.json:
+```json
+{
+    "require": {
+        "alejandroherr/subdomainmap": "dev-master"
+    }
+}
+```
 ###Example using Silex Application
 ```php
 <?php
