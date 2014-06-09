@@ -1,6 +1,6 @@
 <?php
 
-namespace Alejandroherr\Stack;
+namespace AlejandroHerr\Stack;
 
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -9,6 +9,7 @@ class SubdomainMap implements HttpKernelInterface
 {
     protected $map = array();
     protected $app;
+    const DEFAULT_HTTPKERNEL_PATTERN =   '/^$/';
 
     public function __construct(HttpKernelInterface $app, array $map = array())
     {
@@ -20,28 +21,26 @@ class SubdomainMap implements HttpKernelInterface
 
     public function setMap(array $map)
     {
-        $lengths = array_map('strlen', array_keys($map));
-        array_multisort($lengths, SORT_DESC, $map);
-
-        $this->map = $map;
+        $newMap=array();
+        foreach ($map as $key => $value) {
+            if (!preg_match('/^\/.*\/$/', $key)) {
+                $key='/^'.$key.'$/';
+            }
+            $newMap[$key]=$value;
+        }
+        $this->map = $newMap;
     }
 
     public function handle(Request $request, $type = HttpKernelInterface::MASTER_REQUEST, $catch = true)
     {
         $uri = rawurldecode($request->getUri());
         $subDomain = explode('.',explode('/', $uri)[2])[0];
-        foreach ($this->map as $path => $app) {
-            if (0 === strpos($subDomain, $path)) {
+        foreach ($this->map as $pattern => $app) {
+            if (preg_match($pattern, $subDomain)) {
                 $newRequest = $request->duplicate();
 
                 return $app->handle($newRequest, $type, $catch);
             }
-        }
-        if (array_key_exists('*', $this->map)) {
-            $app=$this->map['*'];
-            $newRequest = $request->duplicate();
-
-            return $app->handle($newRequest, $type, $catch);
         }
 
         return $this->app->handle($request, $type, $catch);
